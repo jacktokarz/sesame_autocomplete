@@ -8,7 +8,8 @@ const { Option } = AutoComplete;
 const App = () => {
   
   const [input, setInput] = useState('');
-  const [optionsOpen, setOptionsOpen] = useState(true);
+  const [tempInput, setTempInput] = useState('');
+  const [optionsOpen, setOptionsOpen] = useState(false);
   const [resultVis, setResultVis] = useState(false);
 
   const getHighlightedText = (text, highlight) => {
@@ -18,17 +19,17 @@ const App = () => {
 }
 
   const onSelect = (target) => {
-    // setOptionsOpen(false);
+    setOptionsOpen(false);
   }
 
   const onBlur = () => {
-    // setOptionsOpen(false);
+    setOptionsOpen(false);
   }
 
   const onChange = (newValue) => {
     console.log("setting input to "+newValue);
     setInput(newValue);
-    // setOptionsOpen(newValue.length>0);
+    setOptionsOpen(newValue.length>0);
     setResultVis(false);
   }
 
@@ -58,6 +59,7 @@ const App = () => {
         style={{ width: 200 }}
         placeholder="type here"
         open={optionsOpen}
+        value={tempInput===''?input:tempInput}
         // filterOption={(inputValue, option) => {
         //   return (option !== null &&
         //     option !== undefined &&
@@ -74,7 +76,12 @@ const App = () => {
         {OPTIONS_LIST.filter((food) => (
             food.value.toUpperCase().indexOf(input.toUpperCase()) !== -1
           )).map((food) => { console.log("option food and input "+food.value.toUpperCase().indexOf(input.toUpperCase())); return(
-            <Option key={food.value} value={food.value}>
+            <Option
+              key={food.value}
+              value={food.value}
+              onMouseEnter={() => setTempInput(food.value)}
+              onMouseLeave={() => setTempInput('')}
+            >
               {getHighlightedText(food.value, input)}
             </Option>
         )}
