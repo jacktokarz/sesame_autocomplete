@@ -13,12 +13,12 @@ const App = () => {
   const [resultVis, setResultVis] = useState(false);
 
   const getHighlightedText = (text, highlight) => {
-    // Split text on highlight term, include term itself into parts, ignore case
     const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
     return <span>{parts.map(part => part.toUpperCase() === highlight.toUpperCase() ? <b>{part}</b> : part)}</span>;
-}
+  }
 
   const onSelect = (target) => {
+    setInput(target);
     setOptionsOpen(false);
   }
 
@@ -27,7 +27,6 @@ const App = () => {
   }
 
   const onChange = (newValue) => {
-    console.log("setting input to "+newValue);
     setInput(newValue);
     setOptionsOpen(newValue.length>0);
     setResultVis(false);
@@ -35,15 +34,6 @@ const App = () => {
 
   const onButtonClick = () => {
     setResultVis(true);
-  }
-
-
-  const onSearch = (value) => {
-    console.log("searched "+value);
-  }
-
-  const onFocus = (value) => {
-    console.log("focussed "+value);
   }
 
   return (
@@ -69,13 +59,10 @@ const App = () => {
         onChange={onChange}
         onBlur={onBlur}
         onSelect={onSelect}
-        
-        onSearch={onSearch}
-        onFocus={onFocus}
       >
         {OPTIONS_LIST.filter((food) => (
             food.value.toUpperCase().indexOf(input.toUpperCase()) !== -1
-          )).map((food) => { console.log("option food and input "+food.value.toUpperCase().indexOf(input.toUpperCase())); return(
+          )).map((food) => (
             <Option
               key={food.value}
               value={food.value}
@@ -84,8 +71,7 @@ const App = () => {
             >
               {getHighlightedText(food.value, input)}
             </Option>
-        )}
-        )}
+        ))}
       </AutoComplete>
       <Button
         className="buttonStyle"
