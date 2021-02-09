@@ -101,7 +101,7 @@ const App = () => {
       </div>
       <img
         className="footer"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_xAm5WiWOSyM8uM2-2ts8Hd_zco0je1Fpgg&usqp=CAU"
+        src="https://www.lithospos.com/storage/app/media/fruits-vegetables-pos-banner.jpg"
       />
     </div>
   );

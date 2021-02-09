@@ -11,6 +11,8 @@ body {
   position: fixed;
   bottom: 0px;
   left: 0px;
+  max-height: 60%;
+  width: 100%;
 }
 
 .prompt {
